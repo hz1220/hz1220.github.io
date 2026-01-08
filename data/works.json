@@ -187,6 +187,21 @@
                 ],
                 "link": "https://internationalstemacademy.com/home",
                 "img": "media/ISA_logo.png"
+            },
+
+            {
+                "title" : "Fuel Economy ML Dashboard",
+                "created" : "October 2025 - December 2025",
+                "tech" : "<i class=\"fa-brands fa-python\"></i> Python, <i class=\"fa-brands fa-css3-alt\"></i> Numpy, <i class=\"fa-brands fa-square-js\"></i> Pandas, <i class=\"fa-solid fa-box-open\"></i> SQL, <i class=\"fa-regular fa-cloud\"></i> Cloud.plotly",
+                "details": "This project analyzes over 36,000 vehicles from the U.S. Department of Energy fuel economy dataset to understand and predict vehicle efficiency, emissions, and characteristics using both supervised and unsupervised learning. We built and evaluated Ridge Regression, KNN, Logistic Regression, and K-Means models to predict combined MPG, vehicle year, eco-friendliness, and uncover efficiency-based vehicle groupings, achieving strong performance across tasks (e.g., R² ≈ 0.94–0.98 and ROC AUC up to 0.96).",
+                "points": [
+                    "Academic project",
+                    "Analyzed a large U.S. Department of Energy vehicle dataset (36k+ cars)",
+                    "Built and evaluated multiple machine learning models (Ridge Regression, KNN, Logistic Regression, K-Means)",
+                    "Achieved strong performance across tasks (e.g., R² ≈ 0.94–0.98 and ROC AUC up to 0.96)"
+                ],
+                "link": "https://4ba149ab-7f1e-49f1-bbbc-ac1c8a33675b.plotly.app/",
+                "img": "media/ML.png"
             }
         ]
     }
