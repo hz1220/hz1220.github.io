@@ -413,7 +413,8 @@
 
     .work-card:hover { background: var(--rust-light); }
     .work-card.hidden { display: none; }
-    .work-card:nth-child(3n) { border-right: none; }
+    /* Featured card spans 2 cols, so row-enders are cards 2, 5, 8, 11 … */
+    .work-card:nth-child(3n+2) { border-right: none; }
 
     .work-thumb {
       width: 100%;
@@ -700,8 +701,9 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .works-grid { grid-template-columns: repeat(2, 1fr); }
-      .work-card:nth-child(3n) { border-right: 1px solid var(--rule); }
-      .work-card:nth-child(2n) { border-right: none; }
+      /* 2 cols: featured fills its own row, so row-enders are 1, 3, 5, 7 … */
+      .work-card:nth-child(3n+2) { border-right: 1px solid var(--rule); }
+      .work-card:nth-child(odd) { border-right: none; }
       .work-card.featured { grid-column: span 2; }
     }
 
@@ -752,21 +754,21 @@
 <section class="hero">
   <div class="hero-main">
     <div class="hero-left">
-      <div class="hero-eyebrow">Portfolio · 2025</div>
+      <div class="hero-eyebrow">Portfolio · 2026</div>
       <h1>Hongfei<br><span class="last">Zhu.</span></h1>
-      <div class="hero-vol">Aspiring Data Scientist &nbsp;·&nbsp; Game Designer &nbsp;·&nbsp; Developer</div>
+      <div class="hero-vol">Data Scientist &nbsp;·&nbsp; Game Designer &nbsp;·&nbsp; Developer</div>
     </div>
 
     <div class="hero-col-rule"></div>
 
     <div class="hero-right">
       <p class="hero-kicker">
-        Aspiring data scientist with a foundation in <strong>machine learning, statistical modeling,</strong> and <strong>applied analytics</strong> and a B.S. in Game Design &amp; Development from RIT that keeps my thinking creative, systems-oriented, and a little unconventional.
+        Data scientist with an <strong>M.S. in Data Science from UVA</strong> and a foundation in <strong>machine learning, statistical modeling,</strong> and <strong>applied analytics</strong> — plus a B.S. in Game Design &amp; Development from RIT that keeps my thinking creative, systems-oriented, and a little unconventional.
       </p>
       <div class="hero-meta">
         <div class="hero-meta-row">
-          <span class="hero-meta-label">Currently</span>
-          <span class="hero-meta-val">M.S. Data Science, University of Virginia</span>
+          <span class="hero-meta-label">Education</span>
+          <span class="hero-meta-val">M.S. Data Science, University of Virginia · 2026</span>
         </div>
         <div class="hero-meta-row">
           <span class="hero-meta-label">Focus</span>
@@ -786,16 +788,16 @@
 
   <div class="hero-bottom">
     <div class="hero-stat">
-      <div class="hero-stat-num">12+</div>
+      <div class="hero-stat-num">14+</div>
       <div class="hero-stat-label">Projects Shipped</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">3+</div>
-      <div class="hero-stat-label">Years in Industry</div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Professional Roles</div>
     </div>
     <div class="hero-stat">
       <div class="hero-stat-num">2026</div>
-      <div class="hero-stat-label">M.S. Expected</div>
+      <div class="hero-stat-label">M.S. Earned</div>
     </div>
   </div>
 </section>
@@ -819,11 +821,11 @@
 
       <div class="about-body">
         <h3 class="about-tagline">
-          Game Designer.<br>Engineer.<br><em>Aspiring Data Scientist.</em>
+          Game Designer.<br>Engineer.<br><em>Data Scientist.</em>
         </h3>
 
         <p>
-          I'm Hongfei, currently pursuing my <strong>Master's in Data Science at the University of Virginia</strong>, with a B.S. in Game Design &amp; Development from Rochester Institute of Technology. That combination isn't as strange as it sounds: game design is fundamentally about systems thinking, balance, and data-driven iteration, skills that transfer directly into how I approach analytical problems.
+          I'm Hongfei. I recently completed my <strong>Master's in Data Science at the University of Virginia</strong>, and hold a B.S. in Game Design &amp; Development from Rochester Institute of Technology. That combination isn't as strange as it sounds: game design is fundamentally about systems thinking, balance, and data-driven iteration, skills that transfer directly into how I approach analytical problems.
         </p>
         <p>
           My data work centers on machine learning, statistical modeling, and building visualizations that make complex results actually understandable. I've applied ridge regression, KNN, logistic regression, K-means, and PCA to real-world datasets, and I care as much about communicating findings clearly as I do about the math underneath them.
@@ -839,10 +841,30 @@
             <div class="skill-row"><span class="skill-tag">DS</span>R · tidyverse · ggplot2</div>
             <div class="skill-row"><span class="skill-tag">ML</span>scikit-learn · regression · classification</div>
             <div class="skill-row"><span class="skill-tag">ML</span>Clustering · PCA · model evaluation</div>
+            <div class="skill-row"><span class="skill-tag">ML</span>Deep learning · neural networks</div>
+            <div class="skill-row"><span class="skill-tag">ML</span>NLP · LLMs · transformers</div>
             <div class="skill-row"><span class="skill-tag">Data</span>SQL · data wrangling · EDA</div>
+            <div class="skill-row"><span class="skill-tag">Data</span>Spark · DuckDB · data pipelines</div>
             <div class="skill-row"><span class="skill-tag">Viz</span>Dashboards · data storytelling</div>
+            <div class="skill-row"><span class="skill-tag">Cloud</span>AWS · Streamlit</div>
             <div class="skill-row"><span class="skill-tag">Dev</span>JavaScript · React · Node.js</div>
             <div class="skill-row"><span class="skill-tag">Dev</span>C# · Unity · GDScript · Godot</div>
+          </div>
+        </div>
+
+        <div class="skills-section">
+          <div class="skills-heading">Graduate Coursework · M.S. Data Science, UVA</div>
+          <div class="skills-table">
+            <div class="skill-row"><span class="skill-tag">25F</span>Computation for Data Science</div>
+            <div class="skill-row"><span class="skill-tag">25F</span>ML I: Intro to Predictive Modeling</div>
+            <div class="skill-row"><span class="skill-tag">25F</span>Understanding Uncertainty</div>
+            <div class="skill-row"><span class="skill-tag">25F</span>Data Engineering I: Pipeline Architecture</div>
+            <div class="skill-row"><span class="skill-tag">26Sp</span>Statistical Learning</div>
+            <div class="skill-row"><span class="skill-tag">26Sp</span>ML III: Deep Learning</div>
+            <div class="skill-row"><span class="skill-tag">26Sp</span>Data Visualization</div>
+            <div class="skill-row"><span class="skill-tag">26Sp</span>Ethics of Big Data</div>
+            <div class="skill-row"><span class="skill-tag">26Su</span>Data Engineering II: Big Data Systems</div>
+            <div class="skill-row"><span class="skill-tag">26Su</span>ML Systems &amp; Network Security</div>
           </div>
         </div>
 
@@ -878,7 +900,39 @@
 
       <!-- DATA — FEATURED (spans 2 cols) -->
       <div class="work-card featured" data-cat="data">
-        <div class="work-thumb-placeholder" style="height:240px; background: linear-gradient(120deg,#f0ebe0,#e8e0d0); font-size:3rem;">⛽</div>
+        <img src="media/alma.jpg" alt="ALMA Observatory" class="work-thumb" onerror="this.outerHTML='<div class=\'work-thumb-placeholder\' style=\'height:240px;font-size:3rem;\'>🛰️</div>'">
+        <div class="work-body">
+          <div class="work-type">Featured · Capstone · NLP · LLM</div>
+          <div class="work-title">AI-Assisted Quality Monitoring for ALMA Proposal Reviews</div>
+          <div class="work-date">2026 · UVA M.S. Data Science Capstone</div>
+          <div class="work-desc">Built a prototype pipeline flagging low-quality peer reviews for the Atacama Large Millimeter/submillimeter Array, which fields ~1,700 proposals and ~17,000 written reviews per cycle. Scored reviews for rank–sentiment mismatch, vague feedback, abstract copying, and unprofessional tone by combining astroBERT and MiniLM embeddings with an engineered LLM prompt deployed in Dataiku.</div>
+          <div class="work-footer">
+            <a href="https://github.com/caroline-kranefuss/ALMA_Observatory_AI_Dev" target="_blank" class="work-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card" data-cat="data">
+        <div class="work-thumb-placeholder">🏈</div>
+        <div class="work-body">
+          <div class="work-type">Data Science · Big Data · Benchmarking</div>
+          <div class="work-title">DuckDB vs. Spark Pipeline Benchmark</div>
+          <div class="work-date">Summer 2026</div>
+          <div class="work-desc">Benchmarked DuckDB against a PySpark RDD pipeline computing per-play speed and route-distance features from 864 MB of NFL Big Data Bowl tracking data. DuckDB finished in 10.5s versus Spark's 218s, with both implementations verified to produce identical results across all 14,251 plays. Extended with a Streamlit dashboard served from AWS.</div>
+          <div class="work-footer">
+            <a href="https://github.com/isaactabor21/ds5110-big-data-final-project" target="_blank" class="work-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card" data-cat="data">
+        <div class="work-thumb-placeholder">⛽</div>
         <div class="work-body">
           <div class="work-type">Featured · Data Science · ML · Dashboard</div>
           <div class="work-title">Fuel Economy Modeling &amp; Vehicle Clustering</div>
@@ -1164,7 +1218,7 @@
         <div>
           <div class="fact-row">
             <span class="fact-key">Status</span>
-            <span class="fact-val">Open to DS / Analyst Roles</span>
+            <span class="fact-val">Available · Open to DS / Analyst Roles</span>
           </div>
           <div class="fact-row">
             <span class="fact-key">Location</span>
@@ -1172,7 +1226,7 @@
           </div>
           <div class="fact-row">
             <span class="fact-key">Graduate</span>
-            <span class="fact-val">M.S. Data Science @ UVA, Aug 2026</span>
+            <span class="fact-val">M.S. Data Science, UVA · 2026</span>
           </div>
           <div class="fact-row">
             <span class="fact-key">Undergrad</span>
@@ -1194,7 +1248,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2025 Hongfei Zhu</span>
+  <span>© 2026 Hongfei Zhu</span>
   <span>hz1220.github.io</span>
   <div class="footer-links">
     <a href="https://github.com/hz1220" target="_blank">GitHub</a>
