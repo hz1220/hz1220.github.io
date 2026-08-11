@@ -474,17 +474,49 @@
       font-size: 0.82rem;
       line-height: 1.7;
       color: var(--ink-soft);
-      flex: 1;
+      /* No flex-grow here: stretching the box past 3 lines makes the clamp
+         ellipsize at line 3 while still painting a sliver of line 4. The
+         footer is pinned to the bottom with margin-top:auto instead. */
+      margin-bottom: 1.25rem;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
+    /* Expanded state: drop the clamp and show the full description */
+    .work-desc.is-open {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+    }
+
+    /* Injected by JS only on descriptions that actually overflow */
+    .work-desc-toggle {
+      align-self: flex-start;
+      /* Negative top margin pulls it back up against the description
+         (1.25rem - 0.75rem = 0.5rem gap) without changing the gap below. */
+      margin: -0.75rem 0 1.25rem;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .work-desc-toggle:hover { border-bottom-color: var(--rust); }
+    .work-desc-toggle:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
+
     .work-footer {
       display: flex;
       gap: 1.25rem;
-      margin-top: 1.25rem;
+      margin-top: auto; /* keeps footers aligned across a row of cards */
       padding-top: 1rem;
       border-top: 1px solid var(--rule);
     }
@@ -816,7 +848,7 @@
     <div class="about-grid">
       <div class="about-photo-col">
         <img src="media/Hongfei_Mug.jpg" alt="Hongfei Zhu" class="about-photo" onerror="this.style.display='none'">
-        <div class="about-photo-caption">Hongfei Zhu · Charlottesville, VA</div>
+        <div class="about-photo-caption">Hongfei Zhu · Glen Allen, VA</div>
       </div>
 
       <div class="about-body">
@@ -939,7 +971,7 @@
           <div class="work-date">Winter 2025</div>
           <div class="work-desc">Applied Ridge Regression, KNN, Logistic Regression, and K-Means with PCA to analyze large-scale vehicle datasets. Conducted feature engineering, model selection, and performance evaluation using R², RMSE, and ROC AUC. Built interactive visualizations and dashboards to communicate model insights clearly.</div>
           <div class="work-footer">
-            <a href="https://github.com/hz1220" target="_blank" class="work-link">
+            <a href="https://github.com/isaactabor21/ds5110-big-data-final-project" target="_blank" class="work-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
               GitHub
             </a>
@@ -1222,7 +1254,7 @@
           </div>
           <div class="fact-row">
             <span class="fact-key">Location</span>
-            <span class="fact-val">Charlottesville, VA</span>
+            <span class="fact-val">Glen Allen, VA</span>
           </div>
           <div class="fact-row">
             <span class="fact-key">Graduate</span>
@@ -1268,6 +1300,8 @@
     // Featured card: only span 2 cols when data science or all is showing
     const fc = document.querySelector('.work-card.featured');
     if (fc) fc.style.gridColumn = (cat === 'all' || cat === 'data') ? 'span 2' : '';
+    // Card widths just changed, so re-check which descriptions are clipped.
+    syncDescToggles();
   }
 
   // Scroll reveal
@@ -1286,6 +1320,53 @@
     el.style.transform = 'translateY(14px)';
     el.style.transition = `opacity 0.4s ${i * 0.045}s ease, transform 0.4s ${i * 0.045}s ease`;
     io.observe(el);
+  });
+
+  /* ---- Expandable project descriptions ----
+     Descriptions are clamped to 3 lines. Any description that is actually
+     being cut off gets a "Read more" toggle injected after it. Cards whose
+     text already fits are left alone, so no card gets a useless button. */
+  function syncDescToggles() {
+    document.querySelectorAll('.work-desc').forEach(desc => {
+      // Skip cards hidden by the category filter — they can't be measured.
+      if (desc.offsetParent === null) return;
+
+      const body = desc.parentElement;
+      let btn = body.querySelector('.work-desc-toggle');
+
+      // Never re-measure an expanded description; it can't overflow.
+      if (desc.classList.contains('is-open')) return;
+
+      const isClipped = desc.scrollHeight - desc.clientHeight > 2;
+
+      if (isClipped && !btn) {
+        btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'work-desc-toggle';
+        btn.textContent = 'Read more +';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.addEventListener('click', () => {
+          const open = desc.classList.toggle('is-open');
+          btn.textContent = open ? 'Read less −' : 'Read more +';
+          btn.setAttribute('aria-expanded', String(open));
+        });
+        desc.insertAdjacentElement('afterend', btn);
+      } else if (!isClipped && btn) {
+        btn.remove();
+      }
+    });
+  }
+
+  // Measure after layout settles: fonts change line wrapping, images change height.
+  window.addEventListener('load', syncDescToggles);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncDescToggles);
+  syncDescToggles();
+
+  // Re-measure when column count changes at the responsive breakpoints.
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(syncDescToggles, 150);
   });
 </script>
 </body>
